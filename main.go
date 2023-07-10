@@ -12,15 +12,11 @@ import (
 var faviconFile embed.FS
 
 func getClientIP(r *http.Request) string {
-	// Get the client IP address from the X-Forwarded-For header if available
 	xForwardedFor := r.Header.Get("X-Forwarded-For")
 	if xForwardedFor != "" {
 		ips := strings.Split(xForwardedFor, ",")
-		// Return the first IP address from the list
 		return strings.TrimSpace(ips[0])
 	}
-
-	// Get the remote IP address from the request
 	remoteIP, _, _ := net.SplitHostPort(r.RemoteAddr)
 	return remoteIP
 }
